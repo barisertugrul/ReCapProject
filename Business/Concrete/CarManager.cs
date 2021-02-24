@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -65,6 +66,28 @@ namespace Business.Concrete
         public void Delete(Car car)
         {
             _carDal.Delete(car);
+        }
+
+        //Burada bu şekilde kullanımının doğru olmadığını biliyorum ama 
+        //Doğru kullanımı bilmediğim için geçici olarak (doğrusunu öğrenene kadar) bu şekilde kullanıyorum
+        public List<CarDto> GetAllDto(List<Car> cars, List<Brand> brands, List<Color> colors)
+        {
+            return (from c in cars
+                    join b in brands
+                    on c.BrandId equals b.Id
+                    join cl in colors
+                    on c.ColorId equals cl.Id
+                    select new CarDto
+                    {
+                        CarId = c.CarId,
+                        BrandId = c.BrandId,
+                        ColorId = c.ColorId,
+                        Name = c.Name,
+                        ModelYear = c.ModelYear,
+                        DailyPrice = c.DailyPrice,
+                        Brand = b.Name,
+                        Color = cl.Name
+                    }).ToList();
         }
     }
 }

@@ -317,22 +317,8 @@ namespace ConsoleUI.Concrete
                 List<Color> colors = _colorManager.GetAll();
                 string[] carList = new string[cars.Count];
                 int i = 0;
-                List<CarDto> carsDto = (List<CarDto>)(from c in cars
-                                                      join b in brands
-                                                      on c.BrandId equals b.Id
-                                                      join cl in colors
-                                                      on c.ColorId equals cl.Id
-                                                      select new CarDto
-                                                      {
-                                                          CarId = c.CarId,
-                                                          BrandId = c.BrandId,
-                                                          ColorId = c.ColorId,
-                                                          Name = c.Name,
-                                                          ModelYear = c.ModelYear,
-                                                          DailyPrice = c.DailyPrice,
-                                                          Brand = b.Name,
-                                                          Color = cl.Name
-                                                      }).ToList();
+                //Burada bu şekilde kullanım uygun değil ama, doğrusunu bilmediğim için, görüntüleme amaçlı geçici olarak kullandım
+                List<CarDto> carsDto = _carManager.GetAllDto(cars, brands, colors);
                 foreach (CarDto car in carsDto)
                 {
                     carList[i] = "ID: " + car.CarId + " - Name: " + car.Name + " Brand: " + car.Brand + " - Color: " + car.Color + " - (Daily Price: " + car.DailyPrice + ") " + car.Description;
