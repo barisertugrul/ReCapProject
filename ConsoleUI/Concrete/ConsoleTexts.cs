@@ -58,9 +58,18 @@ namespace ConsoleUI.Concrete
 
         public static void WriteMenuItems(string[] menuItems)
         {
-            foreach (string item in menuItems)
+            string text;
+            if(menuItems != null && menuItems.Length > 0)
             {
-                string text = _leftText + RepeatText(" ", _itemLeft) + item + RepeatText(" ", _consoleWidth - (4 + item.Length)) + _rightText;
+                foreach (string item in menuItems)
+                {
+                    text = _leftText + RepeatText(" ", _itemLeft) + item + RepeatText(" ", _consoleWidth - (4 + item.Length)) + _rightText;
+                    Console.WriteLine(text);
+                }
+            }
+            else
+            {
+                text = _leftText + RepeatText(" ", _itemLeft) + "No data to show" + RepeatText(" ", _consoleWidth - 4) + _rightText;
                 Console.WriteLine(text);
             }
             Console.WriteLine(_emptyLine);

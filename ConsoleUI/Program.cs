@@ -1,7 +1,4 @@
-﻿using Business.Concrete;
-using ConsoleUI.Concrete;
-using DataAccess.Concrete.InMemory;
-using System;
+﻿using ConsoleUI.Concrete;
 
 namespace ConsoleUI
 {
@@ -9,8 +6,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
-            MainConsoleManager mainManager = new MainConsoleManager(carManager);
+            MainConsoleManager mainManager = new MainConsoleManager();
             mainManager.MainMenu();
         }
     }

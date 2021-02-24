@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities.Concrete
 {
-    public class Car:IEntity
+    public class CarDto:IEntity
     {
         public int CarId { get; set; }
         public string Name { get; set; }
@@ -14,5 +14,7 @@ namespace Entities.Concrete
         public short ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
+        public string Brand { get; set; }
+        public string Color { get; set; }
     }
 }
