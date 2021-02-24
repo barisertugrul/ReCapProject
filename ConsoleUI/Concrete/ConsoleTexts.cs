@@ -4,7 +4,7 @@ namespace ConsoleUI.Concrete
 {
     public static class ConsoleTexts
     {
-        private const int _consoleWidth = 84;
+        private const int _consoleWidth = 110;
         private const string _leftText = "     *";
         private const string _rightText = "*";
         private const int _itemLeft = 5;
