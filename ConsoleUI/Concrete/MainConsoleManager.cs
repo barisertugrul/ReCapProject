@@ -24,20 +24,20 @@ namespace ConsoleUI.Concrete
         BrandManager _brandManager = new BrandManager(new EfBrandDal());
         ColorManager _colorManager = new ColorManager(new EfColorDal());
 
-        string[] brandsList = { "1-Honda", "2-Toyota", "3-Mercedes",
-                "4-BMW", "5-Audi", "6-Wolksvagen", "7-Renault", "8-Ford", "9-Tofaş" };
-        string[] colorsList = { "1-WHITE", "2-BLUE", "3-BLACK",
-                "4-RED", "5-GREY", "6-GREEN", "7-YELLOW", "8-ORANGE", "9-PURPLE" };
+        //string[] brandsList = { "1-Honda", "2-Toyota", "3-Mercedes",
+        //        "4-BMW", "5-Audi", "6-Wolksvagen", "7-Renault", "8-Ford", "9-Tofaş" };
+        //string[] colorsList = { "1-WHITE", "2-BLUE", "3-BLACK",
+        //        "4-RED", "5-GREY", "6-GREEN", "7-YELLOW", "8-ORANGE", "9-PURPLE" };
 
         public void MainMenu()
         {
+            string consoleVal;
             string[] menuItems = new string[] { "1-Car Manager", "2-Brand Manager", "3-Color Manager", "4-Settings", "5-EXIT" };
             ConsoleTexts.WriteMenuConsoleTexts("RENT A CAR MAIN MENU", menuItems);
-            Console.Write("\nSelect number of menu item: ");
-            string val;
-            val = Console.ReadLine();
-            if (val == "") val = "0";
-            int selected = Convert.ToInt32(val);
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select number of menu item");
+            if (consoleVal == "") consoleVal = "0";
+            int selected = Convert.ToInt32(consoleVal);
             switch (selected)
             {
                 case 1:
@@ -68,13 +68,13 @@ namespace ConsoleUI.Concrete
 
         private void ColorMenu()
         {
+            string consoleVal;
             string[] menuItems = new string[] { "1-Add New Color", "2-Update a Color", "3-Delete a Color", "4-View Colors List", "5-RETURN MAIN MENU" };
             ConsoleTexts.WriteMenuConsoleTexts("COLOR MANAGER", menuItems);
-            Console.Write("\nSelect number of menu item: ");
-            string val;
-            val = Console.ReadLine();
-            if (val == "") val = "0";
-            int selected = Convert.ToInt32(val);
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select number of menu item");
+            if (consoleVal == "") consoleVal = "0";
+            int selected = Convert.ToInt32(consoleVal);
             switch (selected)
             {
                 case 1:
@@ -105,14 +105,14 @@ namespace ConsoleUI.Concrete
 
         private void BrandMenu()
         {
+            string consoleVal;
 
             string[] menuItems = new string[] { "1-Add New Brand", "2-Update a Brand", "3-Delete a Brand", "4-View Brands List", "5-RETURN MAIN MENU" };
             ConsoleTexts.WriteMenuConsoleTexts("BRAND MANAGER", menuItems);
-            Console.Write("\nSelect number of menu item: ");
-            string val;
-            val = Console.ReadLine();
-            if (val == "") val = "0";
-            int selected = Convert.ToInt32(val);
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select number of menu item");
+            if (consoleVal == "") consoleVal = "0";
+            int selected = Convert.ToInt32(consoleVal);
             switch (selected)
             {
                 case 1:
@@ -143,14 +143,15 @@ namespace ConsoleUI.Concrete
 
         private void CarMenu()
         {
+            string consoleVal;
             string[] menuItems = new string[] { "1-Add New Car", "2-Update a Car", "3-Delete a Car", "4-View Cars List",
                 "5-Cars by Brand", "6-Cars by Color", "7-RETURN MAIN MENU" };
+
             ConsoleTexts.WriteMenuConsoleTexts("CAR MANAGER", menuItems);
-            Console.Write("\nSelect number of menu item: ");
-            string val;
-            val = Console.ReadLine();
-            if (val == "") val = "0";
-            int selected = Convert.ToInt32(val);
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select number of menu item");
+            if (consoleVal == "") consoleVal = "0";
+            int selected = Convert.ToInt32(consoleVal);
             switch (selected)
             {
                 case 1:
@@ -194,26 +195,27 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.HeaderFooterLine();
             ConsoleTexts.Header("ADD NEW CAR");
             ConsoleTexts.HeaderFooterLine();
-            Console.Write("\nType Car Name: ");
-            consoleVal = Console.ReadLine();
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Car Name");
             car.Name = consoleVal;
+
             ConsoleTexts.WriteMenuConsoleTexts("BRANDS", StrBrandList());
-            Console.Write("\nSelect Brand ID: ");
-            consoleVal = Console.ReadLine();
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Brand ID");
             car.BrandId = Convert.ToInt32(consoleVal);
+
             ConsoleTexts.WriteMenuConsoleTexts("COLORS", StrColorList());
-            Console.Write("\nSelect Color ID: ");
-            consoleVal = Console.ReadLine();
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Color ID");
             car.ColorId = Convert.ToInt32(consoleVal);
-            Console.Write("\nType Model Year: ");
-            consoleVal = Console.ReadLine();
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Model Year");
             car.ModelYear = Convert.ToInt16(consoleVal);
-            Console.Write("\nType Daily Price: ");
-            consoleVal = Console.ReadLine();
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Daily Price");
             car.DailyPrice = Convert.ToDecimal(consoleVal);
-            Console.Write("\nType Description: ");
-            consoleVal = Console.ReadLine();
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Description");
             car.Description = consoleVal;
+
             _carManager.Add(car);
         }
 
@@ -229,12 +231,10 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.WriteMenuConsoleTexts("CARS", StrCarList(cars));
             if (StrCarList(cars) != null)
             {
-                Console.Write("\nSelect Car ID to Update: ");
-                consoleVal = Console.ReadLine();
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Car ID to Update");
                 car = _carManager.GetById(Convert.ToInt32(consoleVal));
 
-                Console.Write("\nType Car Name: ");
-                consoleVal = Console.ReadLine();
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Car Name");
                 car.Name = consoleVal;
                 if (consoleVal != "")
                 {
@@ -242,38 +242,37 @@ namespace ConsoleUI.Concrete
                 }
 
                 ConsoleTexts.WriteMenuConsoleTexts("BRANDS", StrBrandList());
-                Console.Write("\nSelect Brand ID (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Brand ID (Leave blank if you do not want to change)");
                 if (consoleVal != "")
                 {
                     car.BrandId = Convert.ToInt32(consoleVal);
                 }
 
                 ConsoleTexts.WriteMenuConsoleTexts("COLORS", StrColorList());
-                Console.Write("\nSelect Color ID (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Color ID (Leave blank if you do not want to change)");
                 if (consoleVal != "")
                 {
                     car.ColorId = Convert.ToInt32(consoleVal);
                 }
-                Console.Write("\nType Model Year (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
+
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Model Year (Leave blank if you do not want to change)");
                 if (consoleVal != "")
                 {
                     car.ModelYear = Convert.ToInt16(consoleVal);
                 }
-                Console.Write("\nType Daily Price (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
+
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Daily Price (Leave blank if you do not want to change)");
                 if (consoleVal != "")
                 {
                     car.DailyPrice = Convert.ToDecimal(consoleVal);
                 }
-                Console.Write("\nType Description (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
+
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Description (Leave blank if you do not want to change)");
                 if (consoleVal != "")
                 {
                     car.Description = consoleVal;
                 }
+
                 _carManager.Update(car);
             }
             else
@@ -294,10 +293,12 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.WriteMenuConsoleTexts("CARS", StrCarList(cars));
             if (StrCarList(cars) != null)
             {
-                Console.Write("\nSelect Car ID to Delete: ");
-                consoleVal = Console.ReadLine();
-                car = _carManager.GetById(Convert.ToInt32(consoleVal));
-                _carManager.Delete(car);
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Car ID to Delete");
+                if ( consoleVal != "")
+                {
+                    car = _carManager.GetById(Convert.ToInt32(consoleVal));
+                    if (ConsoleTexts.ConfirmDelete()) _carManager.Delete(car);
+                }
             }
         }
 
@@ -305,6 +306,30 @@ namespace ConsoleUI.Concrete
         {
             List<Car> cars = _carManager.GetAll();
             ConsoleTexts.WriteMenuConsoleTexts("CARS", StrCarList(cars));
+        }
+
+        private void CarsByColor()
+        {
+            string consoleVal;
+            ConsoleTexts.WriteMenuConsoleTexts("COLORS", StrColorList());
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Color ID");
+            int colordId = Convert.ToInt32(consoleVal);
+
+            string color = _colorManager.GetById(colordId).Name;
+            List<Car> cars = _carManager.GetCarsByColorId(colordId);
+            ConsoleTexts.WriteMenuConsoleTexts(color + " Cars", StrCarList(cars));
+        }
+
+        private void CarsByBrand()
+        {
+            string consoleVal;
+            ConsoleTexts.WriteMenuConsoleTexts("BRANDS", StrColorList());
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Brand ID");
+            int brandId = Convert.ToInt32(consoleVal);
+
+            string brand = _brandManager.GetById(brandId).Name;
+            List<Car> cars = _carManager.GetCarsByColorId(brandId);
+            ConsoleTexts.WriteMenuConsoleTexts(brand + " Branded Cars", StrCarList(cars));
         }
 
         private string[] StrCarList(List<Car> cars)
@@ -332,28 +357,6 @@ namespace ConsoleUI.Concrete
             }
         }
 
-        private void CarsByColor()
-        {
-            ConsoleTexts.WriteMenuConsoleTexts("COLORS", StrColorList());
-            Console.Write("\nSelect Color ID: ");
-            string consoleVal = Console.ReadLine();
-            int colordId = Convert.ToInt32(consoleVal);
-            string color = _colorManager.GetById(colordId).Name;
-            List<Car> cars = _carManager.GetCarsByColorId(colordId);
-            ConsoleTexts.WriteMenuConsoleTexts(color + " Cars", StrCarList(cars));
-        }
-
-        private void CarsByBrand()
-        {
-            ConsoleTexts.WriteMenuConsoleTexts("BRANDS", StrColorList());
-            Console.Write("\nSelect Brand ID: ");
-            string consoleVal = Console.ReadLine();
-            int brandId = Convert.ToInt32(consoleVal);
-            string brand = _brandManager.GetById(brandId).Name;
-            List<Car> cars = _carManager.GetCarsByColorId(brandId);
-            ConsoleTexts.WriteMenuConsoleTexts(brand + " Branded Cars", StrCarList(cars));
-        }
-
         private void AddColor()
         {
             Color color = new Color();
@@ -361,9 +364,10 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.HeaderFooterLine();
             ConsoleTexts.Header("ADD NEW COLOR");
             ConsoleTexts.HeaderFooterLine();
-            Console.Write("\nType Color Name: ");
-            consoleVal = Console.ReadLine();
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Color Name");
             color.Name = consoleVal;
+
             _colorManager.Add(color);
         }
 
@@ -377,16 +381,18 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.WriteMenuConsoleTexts("COLORS", StrColorList());
             if (StrColorList() != null)
             {
-                Console.Write("\nSelect Color ID to Update: ");
-                consoleVal = Console.ReadLine();
-                color = _colorManager.GetById(Convert.ToInt32(consoleVal));
-                Console.Write("\nSelect Color Name (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Color ID to Update");
                 if (consoleVal != "")
-                {
-                    color.Name = consoleVal;
+                { 
+                    color = _colorManager.GetById(Convert.ToInt32(consoleVal));
+
+                    consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Color Name (Leave blank if you do not want to change)");
+                    if (consoleVal != "")
+                    {
+                        color.Name = consoleVal;
+                    }
+                    _colorManager.Update(color);
                 }
-                _colorManager.Update(color);
             }
         }
 
@@ -400,11 +406,12 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.WriteMenuConsoleTexts("COLORS", StrColorList());
             if (StrColorList() != null)
             {
-                Console.Write("\nSelect Color ID to Delete: ");
-                consoleVal = Console.ReadLine();
-
-                color = _colorManager.GetById(Convert.ToInt32(consoleVal));
-                _colorManager.Delete(color);
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Color ID to Delete");
+                if (consoleVal != "")
+                {
+                    color = _colorManager.GetById(Convert.ToInt32(consoleVal));
+                    if (ConsoleTexts.ConfirmDelete()) _colorManager.Delete(color);
+                }
             }
         }
 
@@ -432,8 +439,8 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.HeaderFooterLine();
             ConsoleTexts.Header("ADD NEW BRAND");
             ConsoleTexts.HeaderFooterLine();
-            Console.Write("\nType Brand Name: ");
-            consoleVal = Console.ReadLine();
+
+            consoleVal = ConsoleTexts.ConsoleWriteReadLine("Type Brand Name");
             brand.Name = consoleVal;
             _brandManager.Add(brand);
         }
@@ -448,16 +455,17 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.WriteMenuConsoleTexts("BRANDS", StrBrandList());
             if (StrBrandList() != null)
             {
-                Console.Write("\nSelect Brand ID to Update: ");
-                consoleVal = Console.ReadLine();
-                brand = _brandManager.GetById(Convert.ToInt32(consoleVal));
-                Console.Write("\nSelect Brand Name (Leave blank if you do not want to change): ");
-                consoleVal = Console.ReadLine();
-                if (consoleVal != "")
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Brand ID to Update");
+                if ( consoleVal != "" )
                 {
-                    brand.Name = consoleVal;
+                    brand = _brandManager.GetById(Convert.ToInt32(consoleVal));
+                    consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Brand Name (Leave blank if you do not want to change)");
+                    if (consoleVal != "")
+                    {
+                        brand.Name = consoleVal;
+                    }
+                    _brandManager.Update(brand);
                 }
-                _brandManager.Update(brand);
             }
         }
 
@@ -471,10 +479,12 @@ namespace ConsoleUI.Concrete
             ConsoleTexts.WriteMenuConsoleTexts("BRANDS", StrBrandList());
             if (StrBrandList() != null)
             {
-                Console.Write("\nSelect Brand ID to Delete: ");
-                consoleVal = Console.ReadLine();
-                brand = _brandManager.GetById(Convert.ToInt32(consoleVal));
-                _brandManager.Delete(brand);
+                consoleVal = ConsoleTexts.ConsoleWriteReadLine("Select Brand ID to Delete");
+                if ( consoleVal != "")
+                {
+                    brand = _brandManager.GetById(Convert.ToInt32(consoleVal));
+                    if (ConsoleTexts.ConfirmDelete()) _brandManager.Delete(brand);
+                }
             }
         }
 

@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace ConsoleUI.Concrete
 {
-    public static class ConsoleTexts
+    public class ConsoleTexts
     {
+        //Settings
         private const int _consoleWidth = 110;
         private const string _leftText = "     *";
         private const string _rightText = "*";
         private const int _itemLeft = 5;
         private static string _emptyLine = _leftText + RepeatText(" ", _consoleWidth - 4) + _leftText;
+        private const ConsoleColor headTextColor = ConsoleColor.Blue;
+        private const ConsoleColor errorTextColor = ConsoleColor.Red;
 
         public static void WriteMenuConsoleTexts(string headerText, string[] menuItems)
         {
@@ -29,9 +33,14 @@ namespace ConsoleUI.Concrete
             int headerLength = header.Length + _itemLeft * 2 + 2;
             int left = (_consoleWidth - headerLength) / 2;
             int right = _consoleWidth - (headerLength + left) + 1;
-            string text = _leftText + RepeatText(" ", _itemLeft) + RepeatText("=", left) + " " + header + " " + RepeatText("=", right) + RepeatText(" ", _itemLeft) + _rightText;
-            text += "\n" + _emptyLine;
-            Console.WriteLine(text);
+            string headerLeft = _leftText + RepeatText(" ", _itemLeft) + RepeatText("=", left) + " ";
+            Console.Write(headerLeft);
+            Console.ForegroundColor = headTextColor;
+            Console.Write(header);
+            Console.ResetColor();
+            string headerRight = " " + RepeatText("=", right) + RepeatText(" ", _itemLeft) +_rightText + "\n";
+            Console.Write(headerRight);
+            Console.WriteLine("\n" + _emptyLine);
         }
 
         private static string RepeatText(string repeatText, int numberOfRepeat)
@@ -73,6 +82,28 @@ namespace ConsoleUI.Concrete
                 Console.WriteLine(text);
             }
             Console.WriteLine(_emptyLine);
+        }
+
+        public static string ConsoleWriteReadLine(string writeText)
+        {
+            Console.Write("\n{0}: ", writeText);
+            return Console.ReadLine();
+        }
+
+        public static bool ConfirmDelete()
+        {
+            ColoredErrorText("\nAttention: Are you sure you want to delete this item ? This action is irreversible!\n");
+            Console.Write("Type Y or N: ");
+            return Console.ReadLine() == "Y"
+                ? true
+                : false;
+        }
+
+        public static void ColoredErrorText(string text)
+        {
+            Console.ForegroundColor = errorTextColor;
+            Console.Write(text);
+            Console.ResetColor();
         }
     }
 }
